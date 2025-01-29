@@ -19,13 +19,13 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Joystick ile hareket
+   
         MovePlayer();
 
-        // Nearest enemy kontrolü
+
         FindNearestEnemy();
 
-        // Dönüþ kontrolü
+        
         RotatePlayer();
     }
 
@@ -33,20 +33,20 @@ public class Player : MonoBehaviour
     {
         Vector2 moveDirection = movementJoystick.Direction;
 
-        // Joystick yönünde hareket
+        // Move Towards Joystick
         if (moveDirection != Vector2.zero)
         {
             rb.velocity = moveDirection * playerSpeed;
         }
         else
         {
-            rb.velocity = Vector2.zero;  // Joystick'e basýlmadýðýnda durma
+            rb.velocity = Vector2.zero;  // Stop
         }
     }
 
     private void FindNearestEnemy()
     {
-        minDistance = Mathf.Infinity;  // Mesafeyi baþtan baþlat
+        minDistance = Mathf.Infinity;  // Recalculate distance;
     
 
         if (nearbyEnemies.Count== 0)
@@ -73,18 +73,18 @@ public class Player : MonoBehaviour
     {
         if (nearestEnemy != null)
         {
-            // Enemy'ye doðru dönme
+            // Rotate Toward Enemy
             Vector3 direction = nearestEnemy.transform.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Açý hesapla
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Calculate angle
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, 0, angle)), rotationSpeed);
         }
         else
         {
-            // Enemy yoksa, joystick yönüne doðru dönme
+            // If there is no enemy, move forward
             Vector2 moveDirection = movementJoystick.Direction;
             if (moveDirection != Vector2.zero)
             {
-                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;  // Yön hesapla
+                float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;  // Calculate angle
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, 0, angle)), rotationSpeed);
             }
         }
