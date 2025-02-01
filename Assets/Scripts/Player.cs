@@ -9,8 +9,11 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private List<GameObject> nearbyEnemies = new List<GameObject>();
     private GameObject nearestEnemy;
+    [SerializeField] GameObject bullet;
+    [SerializeField] private float fireRate = 2.0f;
     private float minDistance = Mathf.Infinity;
     private float rotationSpeed = 20f;
+    float timerForFire = 0;
 
     void Start()
     {
@@ -19,13 +22,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-   
         MovePlayer();
-
 
         FindNearestEnemy();
 
-        
         RotatePlayer();
     }
 
@@ -47,8 +47,7 @@ public class Player : MonoBehaviour
     private void FindNearestEnemy()
     {
         minDistance = Mathf.Infinity;  // Recalculate distance;
-    
-
+   
         if (nearbyEnemies.Count== 0)
         {
             nearestEnemy = null;
@@ -64,9 +63,8 @@ public class Player : MonoBehaviour
                     nearestEnemy = enemy;
                 }
             }
-        }
-
-        
+            Fire();
+        }   
     }
 
     private void RotatePlayer()
@@ -77,6 +75,7 @@ public class Player : MonoBehaviour
             Vector3 direction = nearestEnemy.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // Calculate angle
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, 0, angle)), rotationSpeed);
+
         }
         else
         {
@@ -104,5 +103,20 @@ public class Player : MonoBehaviour
         {
             nearbyEnemies.Remove(collision.gameObject);
         }
+    }
+
+    private void Fire()
+    {
+  
+       timerForFire += Time.deltaTime;
+
+        if (timerForFire >= fireRate)
+        {
+
+            GameObject bulletObject = Instantiate(bullet, transform.position, Quaternion.identity);
+            bulletObject.GetComponent<Bullet>().enemy = nearestEnemy;
+            timerForFire = 0;
+        }
+ 
     }
 }

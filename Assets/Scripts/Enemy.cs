@@ -18,7 +18,18 @@ public class Enemy : MonoBehaviour
 
     public int EnemySpeed { get => enemySpeed; set => enemySpeed = value; }
    
-
     public GameObject Player { get => player; set => player = value; }
+
+    public virtual void GetDamage(int amount)
+    {
+        enemyHealth -= amount;
+
+        if (enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+ 
 
 }

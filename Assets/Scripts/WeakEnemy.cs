@@ -24,4 +24,19 @@ public class WeakEnemy : Enemy
         Vector2 direction = (Player.transform.position - transform.position).normalized;
         rb.velocity = direction * EnemySpeed;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            GetDamage(50);
+            Destroy(other.gameObject);
+        }
+    }
+
+    public override void GetDamage(int amount)
+    {
+        base.GetDamage(amount);
+    }
+
 }
