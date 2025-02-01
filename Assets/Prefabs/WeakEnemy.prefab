@@ -147,8 +147,7 @@ MonoBehaviour:
   enemyLevel: 1
   enemyHealth: 100
   enemyDamage: 5
-  enemySpeed: 1
-  player: {fileID: 0}
+  enemySpeed: 3
 --- !u!50 &132281402775472986
 Rigidbody2D:
   serializedVersion: 4

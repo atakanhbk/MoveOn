@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3351587302425785305}
   - component: {fileID: 3857574767714479935}
   m_Layer: 0
-  m_Name: Gun
+  m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,8 @@ MonoBehaviour:
   movementJoystick: {fileID: 0}
   playerSpeed: 5
   bullet: {fileID: 2969723935017387872}
-  fireRate: 1
+  pistol: {fileID: 1398543019981247148}
+  fireRate: 0.5
 --- !u!50 &7960368469559305410
 Rigidbody2D:
   serializedVersion: 4

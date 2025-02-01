@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private List<GameObject> nearbyEnemies = new List<GameObject>();
     private GameObject nearestEnemy;
     [SerializeField] GameObject bullet;
+    [SerializeField] GameObject pistol;
     [SerializeField] private float fireRate = 2.0f;
     private float minDistance = Mathf.Infinity;
     private float rotationSpeed = 20f;
@@ -113,7 +114,7 @@ public class Player : MonoBehaviour
         if (timerForFire >= fireRate)
         {
 
-            GameObject bulletObject = Instantiate(bullet, transform.position, Quaternion.identity);
+            GameObject bulletObject = Instantiate(bullet, pistol.transform.position, Quaternion.identity);
             bulletObject.GetComponent<Bullet>().enemy = nearestEnemy;
             timerForFire = 0;
         }
