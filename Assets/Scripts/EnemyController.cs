@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +9,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] GameObject enemy;
     float timer = 0;
 
-    private void Start()
-    {
-        enemy.GetComponent<Enemy>().player = player;
-    }
+ 
 
     private void Update()
     {
@@ -50,7 +47,11 @@ public class EnemyController : MonoBehaviour
         else
             spawnPosition.y = Random.Range(playerPosition.y - screenHeight - spawnRange.y, playerPosition.y - screenHeight - spawnRange.y);
 
-        // Instantiate the enemy at the spawn position
-        Instantiate(enemy, spawnPosition, Quaternion.identity);
+        GameObject newEnemy = Instantiate(enemy, spawnPosition, Quaternion.identity);
+
+        // ✅ Sahnedeki enemy nesnesine WeakEnemy scriptini alıp değer atıyoruz
+        WeakEnemy weakEnemy = newEnemy.GetComponent<WeakEnemy>();
+        weakEnemy.Player = player;
+        
     }
 }

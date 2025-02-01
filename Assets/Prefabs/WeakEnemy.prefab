@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8363467461920561763}
   - component: {fileID: 3398307424843733622}
   - component: {fileID: 8288242910647832066}
-  - component: {fileID: 4840025787312974454}
+  - component: {fileID: 4635353162180507648}
   - component: {fileID: 132281402775472986}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: WeakEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4840025787312974454
+--- !u!114 &4635353162180507648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,10 +141,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6427787402881602264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff770182de6decb4eb3a4c7768df98aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 38584f271272f9b49b74f50a5811c009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 3
+  enemyLevel: 1
+  enemyHealth: 100
+  enemyDamage: 5
+  enemySpeed: 1
   player: {fileID: 0}
 --- !u!50 &132281402775472986
 Rigidbody2D:
