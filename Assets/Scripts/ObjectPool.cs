@@ -8,6 +8,7 @@ public class ObjectPool : MonoBehaviour
     [Serializable]
     public struct Pool
     {
+        public string poolName;
         public Queue<GameObject> objectPool;
         public GameObject pref;
         public int poolSize;
@@ -36,16 +37,21 @@ public class ObjectPool : MonoBehaviour
     }
 
 
-    public GameObject GetPooledObject(int objectType)
+    public GameObject GetPooledObject(string objectType)
     {
-
-        if (objectType >= pools.Length)
+        int objectTypeIndex = 0;
+        objectType = objectType.ToLower();
+        for (int i = 0; i < pools.Length; i++)
         {
-            return null;
+            if (objectType == pools[i].poolName.ToLower())
+            {
+                objectTypeIndex = i;
+            }
         }
-        GameObject obj = pools[objectType].objectPool.Dequeue();
+
+        GameObject obj = pools[objectTypeIndex].objectPool.Dequeue();
         obj.SetActive(true);
-        pools[objectType].objectPool.Enqueue(obj);
+        pools[objectTypeIndex].objectPool.Enqueue(obj);
         return obj;
     }
 

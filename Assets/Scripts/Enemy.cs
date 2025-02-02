@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int enemyHealth;
     [SerializeField] private int enemyDamage;
     [SerializeField] private int enemySpeed;
-     private GameObject player;
+    [SerializeField] private Image healthBar;
+    private GameObject player;
 
     public int EnemyLevel { get => enemyLevel; set => enemyLevel = value; }
 
@@ -19,11 +21,12 @@ public class Enemy : MonoBehaviour
     public int EnemySpeed { get => enemySpeed; set => enemySpeed = value; }
    
     public GameObject Player { get => player; set => player = value; }
+    public Image HealthBar { get => healthBar; set => healthBar = value; }
 
     public virtual void GetDamage(int amount)
     {
         enemyHealth -= amount;
-
+        healthBar.fillAmount -= amount / 100f;
         if (enemyHealth <= 0)
         {
             Destroy(gameObject);
