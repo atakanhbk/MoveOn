@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
         if (fireCooldown >= fireRate) {
             GameObject bullet = objectPool.GetPooledObject("Spell");
             bullet.transform.position = pistol.transform.position;
-            bullet.GetComponent<Bullet>().enemy = nearestEnemy;
+            bullet.GetComponent<Bullet>().Target = nearestEnemy;
             fireCooldown = 0;
         }
 

@@ -2,16 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Weapon
 {
-    public GameObject enemy;
-    [SerializeField] int bulletSpeed;
-
 
     // Update is called once per frame
     void Update()
     {
-        if (enemy!= null)
+        if (Target!= null)
         {
             MoveToEnemy();
         }
@@ -19,7 +16,7 @@ public class Bullet : MonoBehaviour
 
     private void MoveToEnemy()
     {
-        Vector2 direction = (enemy.transform.position - transform.position).normalized;
-        transform.Translate(direction * bulletSpeed * Time.deltaTime);
+        Vector2 direction = (Target.transform.position - transform.position).normalized;
+        transform.Translate(direction * Speed * Time.deltaTime);
     }
 }

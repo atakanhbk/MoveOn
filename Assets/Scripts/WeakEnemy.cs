@@ -30,9 +30,9 @@ public class WeakEnemy : Enemy
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Weapon"))
         {
-            GetDamage(50);
+            GetDamage(other.gameObject.GetComponent<Weapon>().Damage);
             other.gameObject.SetActive(false);
         }
     }
