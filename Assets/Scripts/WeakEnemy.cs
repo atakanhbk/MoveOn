@@ -30,7 +30,7 @@ public class WeakEnemy : Enemy
         if (other.gameObject.CompareTag("Bullet"))
         {
             GetDamage(50);
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 

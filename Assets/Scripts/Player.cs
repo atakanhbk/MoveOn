@@ -5,16 +5,19 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Joystick movementJoystick;
-    public float playerSpeed;
     private Rigidbody2D rb;
     private List<GameObject> nearbyEnemies = new List<GameObject>();
+
     private GameObject nearestEnemy;
-    [SerializeField] GameObject bullet;
     [SerializeField] GameObject pistol;
+    [SerializeField] ObjectPool objectPool;
     [SerializeField] private float fireRate = 2.0f;
+    private float fireCooldown = 0;
+
     private float minDistance = Mathf.Infinity;
     private float rotationSpeed = 20f;
-    float timerForFire = 0;
+    public float playerSpeed;
+
 
     void Start()
     {
@@ -108,16 +111,15 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-  
-       timerForFire += Time.deltaTime;
+        fireCooldown += Time.deltaTime;
 
-        if (timerForFire >= fireRate)
-        {
-
-            GameObject bulletObject = Instantiate(bullet, pistol.transform.position, Quaternion.identity);
-            bulletObject.GetComponent<Bullet>().enemy = nearestEnemy;
-            timerForFire = 0;
+        if (fireCooldown >= fireRate) {
+            GameObject bullet = objectPool.GetPooledObject();
+            bullet.transform.position = pistol.transform.position;
+            bullet.GetComponent<Bullet>().enemy = nearestEnemy;
+            fireCooldown = 0;
         }
- 
+
+       
     }
 }
