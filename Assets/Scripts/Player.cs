@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         fireCooldown += Time.deltaTime;
 
         if (fireCooldown >= fireRate) {
-            GameObject bullet = objectPool.GetPooledObject();
+            GameObject bullet = objectPool.GetPooledObject(0);
             bullet.transform.position = pistol.transform.position;
             bullet.GetComponent<Bullet>().enemy = nearestEnemy;
             fireCooldown = 0;

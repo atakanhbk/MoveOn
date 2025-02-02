@@ -1,34 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] private Queue<GameObject> objectPool;
-    [SerializeField] private GameObject pref;
-    [SerializeField] private int poolSize;
+    [Serializable]
+    public struct Pool
+    {
+        public Queue<GameObject> objectPool;
+        public GameObject pref;
+        public int poolSize;
+    }
+    [SerializeField] private Pool[] pools = null;
+
 
     private void Awake()
     {
-        for (int i = 0; i < poolSize; i++)
+
+        for (int i = 0; i < pools.Length; i++)
         {
-            if (objectPool == null)
+            if (pools[i].objectPool == null)
             {
-                objectPool = new Queue<GameObject>();
+                pools[i].objectPool = new Queue<GameObject>();
             }
 
-            GameObject obj = Instantiate(pref);
-            obj.SetActive(false);
-            objectPool.Enqueue(obj);
+            for (int j = 0; j < pools[i].poolSize; j++)
+            {
+
+                GameObject obj = Instantiate(pools[i].pref);
+                obj.SetActive(false);
+                pools[i].objectPool.Enqueue(obj);
+            }
         }
     }
 
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(int objectType)
     {
-        GameObject obj = objectPool.Dequeue();
+
+        if (objectType >= pools.Length)
+        {
+            return null;
+        }
+        GameObject obj = pools[objectType].objectPool.Dequeue();
         obj.SetActive(true);
-        objectPool.Enqueue(obj);
+        pools[objectType].objectPool.Enqueue(obj);
         return obj;
     }
 
