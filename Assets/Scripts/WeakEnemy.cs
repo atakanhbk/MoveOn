@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class WeakEnemy : Enemy
 {
-
     private Rigidbody2D rb;
-    
-
+ 
     void Start()
     {
    
